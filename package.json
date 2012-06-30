@@ -1,0 +1,26 @@
+{
+  "name": "vkontakte",
+  "version": "0.0.0",
+  "description": "VK.com API for Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stevebest/node-vkontakte.git"
+  },
+  "keywords": [
+    "vkontakte",
+    "vk.com",
+    "vk",
+    "вконтакте",
+    "api",
+    "client"
+  ],
+  "author": "Stepan Stolyarov <stepan.stolyarov@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~1.2.2"
+  }
+}
