@@ -22,7 +22,12 @@ module.exports = function vkontakte(clientID, clientSecret) {
 
       params.access_token = accessToken;
 
-      https.get(getHttpOptions(method, params), function (res) {
+      var options = {
+        host: 'api.vk.com',
+        path: '/method/' + method + '?' + qs.stringify(params)
+      };
+
+      https.get(options, function (res) {
         var responseData = '';
         res.on('data', function (data) {
           responseData += data.toString();
@@ -45,13 +50,6 @@ module.exports = function vkontakte(clientID, clientSecret) {
         return callback(e);
       });
     };
-
-    function getHttpOptions(method, params) {
-      return {
-        host: 'api.vk.com',
-        path: '/method/' + method + '?' + qs.stringify(params)
-      };
-    }
   }
 
   function byApp(clientID, clientSecret) {
