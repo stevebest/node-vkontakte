@@ -20,7 +20,9 @@ module.exports = function vkontakte(clientID, clientSecret) {
         params = {};
       }
 
-      https.get(getHttpOptions(method, params, accessToken), function (res) {
+      params.access_token = accessToken;
+
+      https.get(getHttpOptions(method, params), function (res) {
         var responseData = '';
         res.on('data', function (data) {
           responseData += data.toString();
@@ -44,9 +46,7 @@ module.exports = function vkontakte(clientID, clientSecret) {
       });
     };
 
-    function getHttpOptions(method, params, accessToken) {
-      params.access_token = accessToken;
-
+    function getHttpOptions(method, params) {
       return {
         host: 'api.vk.com',
         path: '/method/' + method + '?' + qs.stringify(params)
