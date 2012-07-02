@@ -38,10 +38,10 @@ module.exports = function vkontakte(clientID, clientSecret) {
     return function signedRequest() {
       var _ref, _ref1;
       var method = arguments[0],
-          options = 2 <= arguments.length ? [].slice.call(arguments, 1) : [],
-          callback = options.pop(),
-          params = (_ref = options.shift()) != null ? _ref : {},
-          httpMethod = (_ref1 = options.shift()) != null ? _ref1 : 'GET';
+          opt = 2 <= arguments.length ? [].slice.call(arguments, 1) : [],
+          callback = opt.pop(),
+          params = (_ref = opt.shift()) != null ? _ref : {},
+          httpMethod = (_ref1 = opt.shift()) != null ? _ref1 : 'GET';
 
       params.v = '3.0';
       params.format = 'json';
