@@ -14,8 +14,8 @@ module.exports = function vkontakte(clientID, clientSecret) {
 
   function byToken(accessToken) {
 
-    // vk(method, [params,] callback)
-    return function vk(method, params, callback) {
+    // authenticatedRequest(method, [params,] callback)
+    return function authenticatedRequest(method, params, callback) {
       if (typeof params == 'function') {
         callback = params;
         params = {};
