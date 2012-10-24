@@ -21,6 +21,6 @@
   "author": "Stepan Stolyarov <stepan.stolyarov@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "~1.2.2"
+    "mocha": "1.x"
   }
 }
