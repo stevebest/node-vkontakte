@@ -1,6 +1,3 @@
-var http   = require('http');
-var https  = require('https');
-var qs     = require('querystring');
 var crypto = require('crypto');
 var request = require('request');
 
