@@ -1,6 +1,6 @@
 {
   "name": "vkontakte",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "VK.com API for Node",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,8 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "1.x"
+  },
+  "dependencies": {
+    "request": "2.x"
   }
 }

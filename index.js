@@ -2,6 +2,7 @@ var http   = require('http');
 var https  = require('https');
 var qs     = require('querystring');
 var crypto = require('crypto');
+var request = require('request');
 
 module.exports = function vkontakte(clientID, clientSecret) {
 
@@ -16,19 +17,17 @@ module.exports = function vkontakte(clientID, clientSecret) {
 
     // authenticatedRequest(method, [params,] callback)
     return function authenticatedRequest(method, params, callback) {
-      if (typeof params == 'function') {
+      if (typeof params == 'function' || typeof params == 'undefined') {
         callback = params;
         params = {};
       }
 
       params.access_token = accessToken;
 
-      var options = {
-        host: 'api.vk.com',
-        path: '/method/' + method + '?' + qs.stringify(params)
-      };
-
-      doRequest(https, options, callback);
+      return request({
+        uri: 'https://api.vk.com/method/' + method,
+        qs: params
+      }, handleResponse(callback));
     };
   }
 
@@ -49,13 +48,10 @@ module.exports = function vkontakte(clientID, clientSecret) {
       params.method = method;
       params.sig = sign(params, clientSecret);
 
-      var options = {
-        method: httpMethod,
-        host: 'api.vk.com',
-        path: '/api.php?' + qs.stringify(params)
-      };
-
-      doRequest(http, options, callback);
+      return request({
+        uri: 'http://api.vk.com/api.php',
+        qs: params
+      }, handleResponse(callback));
     };
 
     function sign(params, clientSecret) {
@@ -76,32 +72,21 @@ module.exports = function vkontakte(clientID, clientSecret) {
 
   }
 
-  function doRequest(httpClient, options, callback) {
-    var req = httpClient.request(options, function (res) {
-      var responseData = '';
-      res.on('data', function (data) {
-        responseData += data.toString();
-      });
+  function handleResponse(cb) {
+    if (typeof cb === 'undefined') return;
+    return function (err, resp, body) {
+      try {
+        var result = JSON.parse(body);
 
-      res.on('end', function() {
-        try {
-          var result = JSON.parse(responseData);
-
-          if (result.error) {
-            return callback(result.error);
-          }
-
-          return callback(null, result.response);
-        } catch (e) {
-          return callback(e);
+        if (result.error) {
+          return cb(result.error);
         }
-      });
-    });
 
-    req.on('error', function(e) {
-      return callback(e);
-    });
-    req.end();
+        return cb(null, result.response);
+      } catch (e) {
+        return cb(e);
+      }
+    };
   }
 
 };

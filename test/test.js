@@ -1,4 +1,5 @@
 var assert = require('assert');
+var stream = require('stream');
 
 var vkontakte = require('..');
 
@@ -6,9 +7,16 @@ describe('vkontakte', function () {
 
   describe('vkontakte(accessToken)', function () {
 
-    it('returns function', function () {
+    it('returns function `vk`', function () {
       var vk = vkontakte('access-token');
       assert.equal(typeof vk, 'function');
+
+      it('returns a stream', function () {
+        var vk = vkontakte('access-token');
+        var str = vk('users.get', {id:1});
+        assert(str instanceof stream.Stream);
+      });
+
     });
 
     describe('when token is invalid', function () {
@@ -56,6 +64,24 @@ describe('vkontakte', function () {
 
     });
 
+  });
+
+  describe('authenticated function `vk`', function () {
+    var vk = vkontakte('access-token');
+
+    it('returns a stream', function () {
+      var str = vk('users.get', {id:1});
+      assert(str instanceof stream.Stream);
+    });
+  });
+
+  describe('signed function `vk`', function () {
+    var vk = vkontakte('clientID', 'clientSecret');
+
+    it('returns a stream', function () {
+      var str = vk('users.get', {id:1});
+      assert(str instanceof stream.Stream);
+    });
   });
 
 });
