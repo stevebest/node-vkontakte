@@ -21,7 +21,8 @@
   "author": "Stepan Stolyarov <stepan.stolyarov@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "1.x"
+    "mocha": "1.x",
+    "coffee-script": "~1.4.0"
   },
   "dependencies": {
     "request": "2.x"

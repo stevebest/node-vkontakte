@@ -1,6 +1,6 @@
 MOCHA = ./node_modules/.bin/mocha
 
 test:
-	@${MOCHA}
+	@${MOCHA} --compilers coffee:coffee-script
 
 .PHONY: test
