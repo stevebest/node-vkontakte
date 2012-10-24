@@ -26,6 +26,15 @@ vk('friends.get', { fields: 'uid,first_name,photo' }, function (err, friends) {
 });
 ```
 
+## Streaming
+
+Results of making the API requests are returned in form of Node streams, and
+can be piped and whatnot.
+
+```javascript
+vk('friends.get', { /* snip */ }).pipe(process.stdout);
+```
+
 ## Author
 
 Stepan Stolyarov (stepan.stolyarov@gmail.com)
