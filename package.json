@@ -1,6 +1,6 @@
 {
   "name": "vkontakte",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "VK.com API for Node",
   "main": "index.js",
   "scripts": {
