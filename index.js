@@ -61,9 +61,9 @@ function byApp(clientID, clientSecret) {
 
     var md5sum = crypto.createHash('md5');
     for (var i = 0; i < keys.length; i++) {
-      md5sum.update('' + keys[i] + '=' + params[keys[i]]);
+      md5sum.update('' + keys[i] + '=' + params[keys[i]], 'utf-8');
     }
-    md5sum.update(clientSecret);
+    md5sum.update(clientSecret, 'utf-8');
 
     // Return a signature as a hex string of a MD5 hash.
     return md5sum.digest('hex');
