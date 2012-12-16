@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang='en'>
+<head>
+	<meta charset='utf-8'>
+	<title>vkontakte module usage example</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	var APP_ID = 3195356;
+	var SETTINGS = [].join(',');
+	var ROOT_URL = 'http://localhost:8080';
+
+	var options = window.location.hash.substr(1).split('&').reduce(function (acc, opt) {
+		var kv = opt.split('=');
+		acc[kv[0]] = kv[1];
+		return acc;
+	}, {});
+
+	if (options.access_token) {
+		window.location = ROOT_URL + '/me?'
+			+ 'access_token=' + options.access_token
+			;
+	} else if (!options.error) {
+		window.location = 'https://oauth.vk.com/authorize?response_type=token&display=page'
+			+ '&client_id=' + APP_ID
+			+ '&redirect_uri=' + ROOT_URL
+			+ '&scope=' + SETTINGS
+			;
+	}
+</script>
+</body>
+</html>
