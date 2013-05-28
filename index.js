@@ -75,14 +75,14 @@ function handleResponse(cb) {
   return function (err, resp, body) {
     try {
       var result = JSON.parse(body);
-
-      if (result.error) {
-        return cb(result.error);
-      }
-
-      return cb(null, result.response);
     } catch (e) {
       return cb(e);
     }
+
+    if (result.error) {
+      return cb(result.error);
+    }
+
+    return cb(null, result.response);
   };
 }
