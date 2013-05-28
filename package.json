@@ -22,7 +22,8 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "1.x",
-    "coffee-script": "~1.4.0"
+    "coffee-script": "~1.4.0",
+    "nock": "~0.18.0"
   },
   "dependencies": {
     "request": "2.x"
