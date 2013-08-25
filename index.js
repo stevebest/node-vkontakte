@@ -41,7 +41,7 @@ function byApp(clientID, clientSecret) {
         params = (_ref = opt.shift()) != null ? _ref : {},
         httpMethod = (_ref1 = opt.shift()) != null ? _ref1 : 'GET';
 
-    params.v = '3.0';
+    params.v = '5.0';
     params.format = 'json';
     params.api_id = clientID;
     params.method = method;
