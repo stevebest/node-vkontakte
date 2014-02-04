@@ -2,19 +2,19 @@ var stream = require('stream');
 var crypto = require('crypto');
 var request = require('request');
 
-module.exports = function vkontakte(clientID, clientSecret) {
+module.exports = function vkontakte(clientID, clientSecret, proxy) {
   if (typeof clientID === 'undefined')
     throw new TypeError('Must specify either clientID/clientSecret pair or accessToken');
 
   if (typeof clientSecret !== 'undefined') {
-    return byApp(clientID, clientSecret);
+    return byApp(clientID, clientSecret, proxy);
   }
 
   var accessToken = clientID;
-  return byToken(accessToken);
+  return byToken(accessToken, proxy);
 };
 
-function byToken(accessToken) {
+function byToken(accessToken, proxy) {
   // authenticatedRequest(method, [params,] callback)
   return function authenticatedRequest(method, params, callback) {
     if (typeof params == 'function' || typeof params == 'undefined') {
@@ -26,12 +26,13 @@ function byToken(accessToken) {
 
     return request({
       uri: 'https://api.vk.com/method/' + method,
-      qs: params
+      qs: params,
+      proxy: proxy
     }, handleResponse(callback));
   };
 }
 
-function byApp(clientID, clientSecret) {
+function byApp(clientID, clientSecret, proxy) {
   // signedRequest(method, [params, [httpMethod = 'GET',]] callback)
   return function signedRequest() {
     var _ref, _ref1;
@@ -49,7 +50,8 @@ function byApp(clientID, clientSecret) {
 
     return request({
       uri: 'http://api.vk.com/api.php',
-      qs: params
+      qs: params,
+      proxy: proxy
     }, handleResponse(callback));
   };
 
